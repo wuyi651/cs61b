@@ -1,5 +1,5 @@
 public class LinkedListDeque<T> {
-    public class IntNode {
+    private class IntNode {
         private T item;
         private IntNode next;
         private IntNode prev;
@@ -19,7 +19,7 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque other) {
+    /*public LinkedListDeque(LinkedListDeque other) {
         sentinel = new IntNode(null, null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
@@ -27,7 +27,7 @@ public class LinkedListDeque<T> {
         for (int i = 0; i < other.size; i++) {
             addLast((T) other.get(i));
         }
-    }
+    }*/
 
     public void addFirst(T item) {
         sentinel.next = new IntNode(item, sentinel.next, sentinel);
@@ -62,18 +62,22 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             return null;
         }
+        size--;
+        T a = sentinel.next.item;
         sentinel.next.next.prev = sentinel;
         sentinel.next = sentinel.next.next;
-        return sentinel.next.item;
+        return a;
     }
 
     public T removeLast() {
         if (size == 0) {
             return null;
         }
+        size--;
+        T a = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
-        return sentinel.prev.item;
+        return a;
     }
 
     public T get(int index) {
@@ -98,5 +102,13 @@ public class LinkedListDeque<T> {
             index--;
         }
         return getRecursive(index);
+    }
+
+    public static void main(String[] args) {
+        LinkedListDeque a =new LinkedListDeque();
+        a.addFirst(0);
+        a.addFirst(1);
+        a.addFirst(2);
+        System.out.println(a.removeFirst());
     }
 }

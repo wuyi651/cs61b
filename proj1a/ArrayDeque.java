@@ -11,17 +11,17 @@ public class ArrayDeque<T> {
         nextLast = 1;
     }
 
-    public ArrayDeque(ArrayDeque other) {
-        items = (T[]) new Object[8];
-        size = 0;
-        nextFirst = other.nextFirst;
-        nextLast = addOne(nextFirst);
-
-        for (int i = 0; i < other.size; i++) {
-            addLast((T) other.get(nextLast));
-
-        }
-    }
+//    public ArrayDeque(ArrayDeque other) {
+//        items = (T[]) new Object[8];
+//        size = 0;
+//        nextFirst = other.nextFirst;
+//        nextLast = addOne(nextFirst);
+//
+//        for (int i = 0; i < other.size; i++) {
+//            addLast((T) other.get(nextLast));
+//
+//        }
+//    }
 
     private int addOne(int x) {
         return (x + 1) % items.length;
@@ -79,12 +79,13 @@ public class ArrayDeque<T> {
             return null;
         }
         nextFirst = addOne(nextFirst);
+        T a = items[nextFirst];
         items[nextFirst] = null;
         size--;
         if (items.length > 16 && size <= items.length / 4) {
             resize(items.length / 2);
         }
-        return items[addOne(nextFirst)];
+        return a;
     }
 
     public T removeLast() {
@@ -92,12 +93,13 @@ public class ArrayDeque<T> {
             return null;
         }
         nextLast = subOne(nextLast);
+        T a = items[nextLast];
         items[nextLast] = null;
         size--;
         if (items.length > 16 && size <= items.length / 4) {
             resize(items.length / 2);
         }
-        return items[subOne(nextLast)];
+        return a;
     }
 
     public T get(int index) {
