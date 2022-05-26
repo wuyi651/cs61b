@@ -29,7 +29,7 @@ public class Palindrome {
         return isPalindromehelper(d);
     }
 
-    public boolean isPalindromehelper(Deque word) {
+    private boolean isPalindromehelper(Deque word) {
         if (word.size() <= 1) {
             return true;
         }
@@ -47,7 +47,7 @@ public class Palindrome {
         return isPalindromehelper2(d,cc);
     }
 
-    public boolean isPalindromehelper2(Deque word,CharacterComparator cc) {
+    private boolean isPalindromehelper2(Deque word,CharacterComparator cc) {
         if (word.size() <= 1) {
             return true;
         }
