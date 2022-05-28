@@ -103,12 +103,4 @@ public class LinkedListDeque<T> {
         }
         return getRecursive(index);
     }
-
-    public static void main(String[] args) {
-        LinkedListDeque a =new LinkedListDeque();
-        a.addFirst(0);
-        a.addFirst(1);
-        a.addFirst(2);
-        System.out.println(a.removeFirst());
-    }
 }
