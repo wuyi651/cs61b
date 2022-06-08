@@ -48,24 +48,43 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return Math.floorMod(key.hashCode(), numBuckets);
     }
 
-    /* Returns the value to which the specified key is mapped, or null if this
+    /** Returns the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key.
-     */
+     **/
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        int i = hash(key);
+        return buckets[i].get(key);
     }
 
-    /* Associates the specified value with the specified key in this map. */
+    /** Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        int i = hash(key);
+        if (!containsKey(key)) {
+            size++;
+        }
+        buckets[i].put(key, value);
+        if (loadFactor() >= MAX_LF) {
+            resize();
+        }
+    }
+    private void resize() {
+        ArrayMap<K,V>[] temp = buckets;
+        buckets = new ArrayMap[2 * temp.length];
+        clear();
+        for (int i = 0; i < temp.length; i++) {
+            Set<K> set = temp[i].keySet();
+            for (K s : set) {
+                put(s,temp[i].get(s));
+            }
+        }
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -73,6 +92,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
+
         throw new UnsupportedOperationException();
     }
 
@@ -95,5 +115,12 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public Iterator<K> iterator() {
         throw new UnsupportedOperationException();
+    }
+
+    public static void main(String[] args) {
+        MyHashMap<String,String> a= new MyHashMap<>();
+        a.put("aaa","aaa");
+        a.put("bbb","bbb");
+        a.resize();
     }
 }
